@@ -12,7 +12,7 @@
       "matchUpdateTypes": ["patch", "pin", "digest"],
       "automerge": true,
       "automergeType": "branch",
-      "additionalBranchPrefix": "automerge"
+      "additionalBranchPrefix": "automerge-"
     },
     {
       "matchDepTypes": ["devDependencies"],
