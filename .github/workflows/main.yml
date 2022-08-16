@@ -5,24 +5,46 @@ on:
   push:
     branches:
       - main
-      - renovate/**
+      - renovate/automerge-**
   pull_request:
     branches: [main]
+
+  # allow manual trigger
+  workflow_dispatch:
+
+concurrency:
+  group: ci-tests-${{ github.ref }}-1
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js 18
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup Node.js 18 (next LTS)
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'yarn'
+
+      - name: Audit production dependencies
+        run: yarn npm audit --all --recursive --environment=production
+
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --immutable --network-timeout 1000000
+
+      - name: Cache build
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}-
 
       - name: Build
         run: yarn build
