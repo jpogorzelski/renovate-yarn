@@ -1,7 +1,6 @@
 {
   "extends": ["config:base"],
-  "baseBranches": ["main"],
-  "timezone": "Europe/Helsinki",
+  "timezone": "Europe/Warsaw",
   "separateMinorPatch": true,
   "separateMultipleMajor": true,
   "packageRules": [
