@@ -3,6 +3,7 @@
   "timezone": "Europe/Warsaw",
   "separateMinorPatch": true,
   "separateMultipleMajor": true,
+  "transitiveRemediation": true,
   "packageRules": [
     {
       "matchDepTypes": ["dependencies"],
