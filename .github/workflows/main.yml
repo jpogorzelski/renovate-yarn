@@ -2,9 +2,11 @@
 name: Build and test
 
 on:
+  schedule:
+    # run at 1 AM UTC on every day-of-week from Monday through Friday
+    - cron: "0 1 * * 1-5"
   push:
     branches:
-      - main
       - renovate/automerge-**
   pull_request:
     branches: [main]
@@ -18,16 +20,29 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event_name == 'schedule' || !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 18 (next LTS)
+      - name: Setup Node.js 18 (current LTS)
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'yarn'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+        shell: bash
+
+      - name: Restore yarn cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-cache-folder-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+          restore-keys: |
+            yarn-cache-folder-
 
       - name: Audit production dependencies
         run: yarn npm audit --all --recursive --environment=production
