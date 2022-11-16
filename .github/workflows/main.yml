@@ -10,6 +10,7 @@ on:
       - renovate/automerge-**
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
 
   # allow manual trigger
   workflow_dispatch:
@@ -40,7 +41,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-folder-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '**/.yarnrc.yml') }}
           restore-keys: |
             yarn-cache-folder-
 
