@@ -1,6 +1,7 @@
 {
   "extends": ["config:base"],
   "timezone": "Europe/Warsaw",
+  "rangeStrategy": "pin",
   "separateMinorPatch": true,
   "separateMultipleMajor": true,
   "transitiveRemediation": true,
