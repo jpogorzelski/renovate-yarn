@@ -2,23 +2,9 @@
   "extends": ["config:base"],
   "timezone": "Europe/Warsaw",
   "rangeStrategy": "pin",
-  "separateMinorPatch": true,
   "separateMultipleMajor": true,
-  "transitiveRemediation": true,
   "packageRules": [
     {
-      "matchDepTypes": ["dependencies"],
-      "groupName": "allPatch",
-      "groupSlug": "dependency-updates",
-      "matchUpdateTypes": ["patch", "pin", "digest"],
-      "automerge": true,
-      "automergeType": "branch",
-      "additionalBranchPrefix": "automerge-"
-    },
-    {
-      "matchDepTypes": ["devDependencies"],
-      "groupName": "allDevNonMajor",
-      "groupSlug": "dev-dependency-updates",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true,
       "automergeType": "branch",
