@@ -45,7 +45,7 @@ jobs:
         shell: bash
 
       - name: Restore yarn cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '**/.yarnrc.yml') }}
@@ -59,7 +59,7 @@ jobs:
         run: yarn install --immutable --network-timeout 1000000
 
       - name: Cache build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ${{ github.workspace }}/.next/cache
