@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "next": "15.0.3",
-    "react": "19.0.0-rc-fb9a90fa48-20240614",
-    "react-dom": "19.0.0-rc-fb9a90fa48-20240614"
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
     "@types/node": "22.10.1",
-    "@types/react": "18.3.13",
-    "@types/react-dom": "18.3.1",
+    "@types/react": "18.3.14",
+    "@types/react-dom": "18.3.2",
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "9.1.0",
